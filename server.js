@@ -36,13 +36,13 @@ server.post("/signup", (req, res, next) => {
         }
     }
     if (found) {
-        res.send("User Already Exist")
+        res.send("Email already exsist")
     }
     else {
         usersData.push(req.body);
-        res.send("Signup Successully");
+        res.send("You have signedup succesfully");
     }
-    console.log(usersData);
+ 
 
 });
 
