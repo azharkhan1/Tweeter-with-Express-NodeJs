@@ -1,7 +1,12 @@
 
-let userData = [];
-let currentUser = [];
-
+let usersData = [
+{
+    userEmail: "azhar40@live.co.uk",
+    userPassword: "azharkhan",
+    userName: "Azhar khan",
+},
+]
+var currentUser;
 
 var express = require("express");
 var bodyParser = require('body-parser');
@@ -16,44 +21,59 @@ server.use(bodyParser.urlencoded({
 server.use(cors());
 server.use(morgan('dev'))
 
-
 const PORT = process.env.PORT || 3000;
 
 
+server.post("/signup", (req, res, next) => {
 
-server.post("/signup", function (req, res, next) {
-    let obj = req.body;
-    console.log("body: ", req.body);
-    res.send("Sign Up Successfully" + JSON.stringify(req.body));
-    userData.push(obj);
-});
+    var currEmail = req.body.userEmail;
+    var found = false;
 
+    for (var i = 0; i < usersData.length; i++) {
+        if (usersData[i].userEmail === currEmail) {
+            found = true;
+            break;
+        }
+    }
+    if (found) {
+        res.send("User Already Exist")
+    }
+    else {
+        usersData.push(req.body);
+        res.send("Signup Successully");
+    }
+    console.log(usersData);
 
-server.get("/get", function (req, res, next) {
-    res.send(userData);
 });
 
 server.post("/login", function (req, res, next) {
 
     let obj = req.body;
-    // let found = false;
+    let found = false;
 
-    res.send("" + JSON.stringify(userData[0].email) + "haha" + JSON.stringify(obj.email))
-//     for (let i = 0; i < userData.length; i++) {
-//         if (userData[i].email === obj.email) {
-//             found = i;
-//         }
-//     }
-//     if (found === false) {
-//         res.send("Wrong password or email");
-//     }
-//     else if (userData[found] === obj.password) {
-//         res.send("Login succesfully");
-//     }
-//     else {
-//         res.send("Wrong password or email" );
-//     }
+ for (var i = 0; i < usersData.length; i++) {
+        if (usersData[i].userEmail === obj.email) {
+            found = i;
+            currentUser = found;
+            break;
+        }
+    }
+    if (found === false) {
+        res.send("Email or password is wrong")
+    }
+    else if (usersData[found].userPassword === obj.password ){
+         res.status(200).send("Signed in  Succesfully");
+    }
+    else{
+            res.send("Email or password is wrong");
+    }
 })
+
+server.get("/successfullSignup", (req,res,next)=>{
+
+    res.send("signed up succesfully" + JSON.stringify(usersData));
+
+});
 
 
 

@@ -1,5 +1,4 @@
 
-
 const signup = () => {
 
     var userEmail = document.getElementById("email").value;
@@ -17,7 +16,7 @@ const signup = () => {
     console.log(obj);
 
     const Http = new XMLHttpRequest();
-    const url = 'http://192.168.40.42:3000/signup';
+    const url = 'http://192.168.1.101:3000/signup';
     Http.open("POST", url);
     Http.setRequestHeader("Content-Type", "application/json");
     Http.send(JSON.stringify(obj));
@@ -25,11 +24,9 @@ const signup = () => {
     Http.onreadystatechange = (e) => {
         console.log(Http.responseText)
     }
-  
+    window.location.href = "login.html";
     return false;
 }
-
-
 
 const check = () => {
 
@@ -43,7 +40,7 @@ const check = () => {
     console.log(obj);
 
     const Http = new XMLHttpRequest();
-    const url = 'http://192.168.40.42:3000/login';
+    const url = 'http://192.168.1.101:3000/login';
     Http.open("POST", url);
     Http.setRequestHeader("Content-Type", "application/json");
     Http.send(JSON.stringify(obj));
@@ -51,17 +48,30 @@ const check = () => {
     Http.onreadystatechange = (e) => {
         console.log(Http.responseText)
     }
- 
+    // window.location.href = "dashboard.html";
     return false;
 
 }
 
+const signupSuccesfully = ()=>{
 
 
+    console.log("its running")
+    let userData;
 
+    
+    const Http = new XMLHttpRequest();
+    const url = "http://192.168.1.101:3000/successfullSignup";
+    Http.open("GET", url);
+    Http.send();
+    Http.onreadystatechange = (e) => {
+        console.log(Http.responseText)
+    }
 
-
-
+    // document.getElementById("loginemail").innerHTML = userData[index].userEmail;
+    // document.getElementById("name").innerHTML = userData[index].userName;
+    
+}
 
 
 const logout = () => {
