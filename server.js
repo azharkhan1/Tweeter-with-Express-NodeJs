@@ -1,4 +1,3 @@
-
 let usersData = [
 {
     userEmail: "azhar40@live.co.uk",
@@ -48,6 +47,8 @@ server.post("/signup", (req, res, next) => {
 
 server.post("/login", function (req, res, next) {
 
+    req.connection.localAddress
+
     let obj = req.body;
     let found = false;
 
@@ -62,16 +63,21 @@ server.post("/login", function (req, res, next) {
         res.send("Email or password is wrong")
     }
     else if (usersData[found].userPassword === obj.password ){
-         res.status(200).send("Signed in  Succesfully");
+         res.send("Signed in  Succesfully" +JSON.stringify(currentUser));
+         currentUser = found;
     }
     else{
             res.send("Email or password is wrong");
     }
 })
 
-server.get("/successfullSignup", (req,res,next)=>{
+server.post("/successfullSignup", (req,res,next)=>{
 
-    res.send("signed up succesfully" + JSON.stringify(usersData));
+      res.send({
+            usersEmail : usersData[currentUser].userEmail,
+            userName : usersData[currentUser].userName,
+      });
+
 
 });
 

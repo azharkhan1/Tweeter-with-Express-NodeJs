@@ -1,4 +1,5 @@
 
+
 const signup = () => {
 
     var userEmail = document.getElementById("email").value;
@@ -16,7 +17,7 @@ const signup = () => {
     console.log(obj);
 
     const Http = new XMLHttpRequest();
-    const url = 'http://192.168.1.101:3000/signup';
+    const url = 'http://192.168.40.42:3000/signup';
     Http.open("POST", url);
     Http.setRequestHeader("Content-Type", "application/json");
     Http.send(JSON.stringify(obj));
@@ -24,7 +25,7 @@ const signup = () => {
     Http.onreadystatechange = (e) => {
         console.log(Http.responseText)
     }
-    window.location.href = "login.html";
+    // window.location.href = "login.html";
     return false;
 }
 
@@ -40,7 +41,7 @@ const check = () => {
     console.log(obj);
 
     const Http = new XMLHttpRequest();
-    const url = 'http://192.168.1.101:3000/login';
+    const url = 'http://192.168.40.42:3000/login';
     Http.open("POST", url);
     Http.setRequestHeader("Content-Type", "application/json");
     Http.send(JSON.stringify(obj));
@@ -48,28 +49,29 @@ const check = () => {
     Http.onreadystatechange = (e) => {
         console.log(Http.responseText)
     }
-    // window.location.href = "dashboard.html";
+    window.location.href = "dashboard.html";
     return false;
 
 }
 
 const signupSuccesfully = ()=>{
 
-
-    console.log("its running")
-    let userData;
-
-    
+    console.log("its runningahaha");
     const Http = new XMLHttpRequest();
-    const url = "http://192.168.1.101:3000/successfullSignup";
-    Http.open("GET", url);
-    Http.send();
+
+    const url = 'http://192.168.40.42:3000/successfullSignup';
+    Http.open("POST", url);
+    Http.send("jhjha");
     Http.onreadystatechange = (e) => {
-        console.log(Http.responseText)
+       let data = JSON.parse((Http.responseText));
+        console.log(data);
+        document.getElementById("name").innerHTML= data.userName;
+        document.getElementById("loginemail").innerHTML= data.usersEmail;
+
+
     }
 
-    // document.getElementById("loginemail").innerHTML = userData[index].userEmail;
-    // document.getElementById("name").innerHTML = userData[index].userName;
+
     
 }
 
