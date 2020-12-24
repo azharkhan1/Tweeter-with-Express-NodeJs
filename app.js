@@ -17,7 +17,7 @@ const signup = () => {
     console.log(obj);
 
     const Http = new XMLHttpRequest();
-    const url = 'http://192.168.40.42:3000/signup';
+    const url = 'https://azharregisterform.herokuapp.com/signup';
     Http.open("POST", url);
     Http.setRequestHeader("Content-Type", "application/json");
     Http.send(JSON.stringify(obj));
@@ -41,7 +41,7 @@ const check = () => {
     console.log(obj);
 
     const Http = new XMLHttpRequest();
-    const url = 'http://192.168.40.42:3000/login';
+    const url = 'https://azharregisterform.herokuapp.com/login';
     Http.open("POST", url);
     Http.setRequestHeader("Content-Type", "application/json");
     Http.send(JSON.stringify(obj));
@@ -59,7 +59,7 @@ const signupSuccesfully = ()=>{
     console.log("its runningahaha");
     const Http = new XMLHttpRequest();
 
-    const url = 'http://192.168.40.42:3000/successfullSignup';
+    const url = 'https://azharregisterform.herokuapp.com/successfullSignup';
     Http.open("POST", url);
     Http.send("jhjha");
     Http.onreadystatechange = (e) => {
