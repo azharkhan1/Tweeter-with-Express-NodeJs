@@ -37,11 +37,19 @@ server.post("/signup", (req, res, next) => {
         }
     }
     if (found) {
-        res.send("Email already exsist")
+        res.send(
+            {message : "Email already exsist",
+            status: 400,
+            })
     }
     else {
         usersData.push(req.body);
-        res.send("You have signedup succesfully");
+        res.send(
+            res.send({
+                message : "Signed in succesfully",
+                status: 200,
+            })
+        );
     }
  
 
@@ -49,7 +57,6 @@ server.post("/signup", (req, res, next) => {
 
 server.post("/login", function (req, res, next) {
 
-    req.connection.localAddress
 
     let obj = req.body;
     let found = false;
@@ -62,24 +69,34 @@ server.post("/login", function (req, res, next) {
         }
     }
     if (found === false) {
-        res.send("Email or password is wrong")
+        res.send({
+            message : "Email or password is wrong",
+            status: 400,
+        })
     }
     else if (usersData[found].userPassword === obj.password ){
-         res.send("Signed in  Succesfully" +JSON.stringify(currentUser));
          currentUser = found;
+         res.send({
+             message : "Signed up succesfully",
+             status: 200,
+             currentUser : found,
+         });
+      
     }
     else{
-            res.send("Email or password is wrong");
+            res.send(
+                {
+                    message : "Email or password is wrong",
+                    status : 400,
+                }
+            );
     }
 })
 
-server.post("/successfullSignup", (req,res,next)=>{
+server.get("/successfullSignup", (req,res,next)=>{
 
-      res.send({
-            usersEmail : usersData[currentUser].userEmail,
-            userName : usersData[currentUser].userName,
-      });
-
+      res.send(usersData);
+  
 
 });
 
