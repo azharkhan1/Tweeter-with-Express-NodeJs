@@ -48,7 +48,7 @@ server.post("/signup", (req, res, next) => {
         usersData.push(req.body);
         res.send(
             res.send({
-                message: "Signed in succesfully",
+                message: "Signed up succesfully",
                 status: 200,
             })
         );

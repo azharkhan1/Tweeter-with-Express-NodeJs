@@ -23,7 +23,7 @@ const signup = () => {
     };
 
 
-    console.log(obj);
+
 
     const Http = new XMLHttpRequest();
     Http.open("POST", url + "/signup");
@@ -35,7 +35,7 @@ const signup = () => {
         if (Http.readyState === 4) {
 
 
-            console.log(Http.responseText)
+            // console.log(Http.responseText)
             let jsonRes = JSON.parse(Http.responseText)
 
             if (jsonRes.status === 200) {
@@ -59,7 +59,7 @@ const check = () => {
         email: email,
         password: password,
     }
-    console.log(obj);
+    // console.log(obj);
 
     const Http = new XMLHttpRequest();
 
@@ -72,13 +72,13 @@ const check = () => {
         if (Http.readyState === 4) {
 
 
-            console.log(Http.responseText);
+            // console.log(Http.responseText);
             let jsonRes = JSON.parse(Http.responseText);
 
             if (jsonRes.status === 200) {
                 alert(jsonRes.message);
                 localStorage.setItem("currentUser", jsonRes.currentUser);
-                console.log(currentUser);
+                // console.log(currentUser);
                 window.location.href = "dashboard.html";
             }
             else {
@@ -109,12 +109,12 @@ const signupSuccesfully = () => {
             let data = JSON.parse((Http.responseText));
 
             for (let i = 0; i < data.length; i++) {
-                console.log(data[i].userName)
+                // console.log(data[i].userName)
                 for (let j = 0; j < data[i].userPosts.length; j++) {
 
                     var postContent = document.createElement("li");
                     postContent.innerHTML = `<h4 class="userName">${data[i].userName}</h4> <p class="userPost">${data[i].userPosts[j]}</p>`;
-                    console.log(`User: ${data[i]} ${data[i].userPosts[j]}`)
+                    // console.log(`User: ${data[i]} ${data[i].userPosts[j]}`)
                     posts.appendChild(postContent)
                 }
             }
