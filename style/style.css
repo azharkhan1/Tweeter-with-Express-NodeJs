@@ -323,6 +323,10 @@ ul{
   .posts__input{
     width:450px;
 }
+.posts__container{
+    margin-left:50px;
+}
+
 .myCard__content{
     margin-top:50px;
 }
