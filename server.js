@@ -1,9 +1,10 @@
 let usersData = [
-{
-    userEmail: "azhar40@live.co.uk",
-    userPassword: "azharkhan",
-    userName: "Azhar khan",
-},
+    {
+        userEmail: "azhar40@live.co.uk",
+        userPassword: "azharkhan",
+        userName: "Azhar khan",
+        userPosts : [],
+    },
 ]
 
 
@@ -38,20 +39,21 @@ server.post("/signup", (req, res, next) => {
     }
     if (found) {
         res.send(
-            {message : "Email already exsist",
-            status: 400,
+            {
+                message: "Email already exsist",
+                status: 400,
             })
     }
     else {
         usersData.push(req.body);
         res.send(
             res.send({
-                message : "Signed in succesfully",
+                message: "Signed in succesfully",
                 status: 200,
             })
         );
     }
- 
+
 
 });
 
@@ -61,7 +63,7 @@ server.post("/login", function (req, res, next) {
     let obj = req.body;
     let found = false;
 
- for (var i = 0; i < usersData.length; i++) {
+    for (var i = 0; i < usersData.length; i++) {
         if (usersData[i].userEmail === obj.email) {
             found = i;
             currentUser = found;
@@ -70,36 +72,45 @@ server.post("/login", function (req, res, next) {
     }
     if (found === false) {
         res.send({
-            message : "Email or password is wrong",
+            message: "Email or password is wrong",
             status: 400,
         })
     }
-    else if (usersData[found].userPassword === obj.password ){
-         currentUser = found;
-         res.send({
-             message : "Signed up succesfully",
-             status: 200,
-             currentUser : found,
-         });
-      
+    else if (usersData[found].userPassword === obj.password) {
+        currentUser = found;
+        res.send({
+            message: "Signed in succesfully",
+            status: 200,
+            currentUser: found,
+        });
+
     }
-    else{
-            res.send(
-                {
-                    message : "Email or password is wrong",
-                    status : 400,
-                }
-            );
+    else {
+        res.send(
+            {
+                message: "Email or password is wrong",
+                status: 400,
+            }
+        );
     }
 })
 
-server.get("/successfullSignup", (req,res,next)=>{
+server.get("/successfullSignup", (req, res, next) => {
 
-      res.send(usersData);
-  
+    res.send(usersData);
+
 
 });
 
+server.post("/userPost", (req,res,next)=>{
+    
+    let reqBody = req.body;
+    console.log(usersData);
+    usersData[reqBody.currentUser].userPosts.push(reqBody.userPost);
+    res.send(usersData);
+
+
+})
 
 
 server.listen(PORT, () => {
