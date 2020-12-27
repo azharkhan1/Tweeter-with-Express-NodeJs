@@ -147,7 +147,7 @@ const post = () => {
 
     }
     posts.appendChild(postContent);
-    userPost.innerHTML = "";
+    document.getElementById("userPost").value = " ";
 }
 
 
